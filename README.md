@@ -3,7 +3,7 @@
 
 blog:https://www.jianshu.com/p/482ef2ad3e66
 
-NSUserDefaultsModel:https://github.com/liuchongfaye/NSUserDefaultsModel(NSUserDefaults改进方案)
+NSUserDefaultsModel:https://github.com/liuchongfaye/NSUserDefaultsModel (NSUserDefaults改进方案)
 
 其中主要有两个类：YIIParameters和YIIFMDB，具体用法如下：
 
