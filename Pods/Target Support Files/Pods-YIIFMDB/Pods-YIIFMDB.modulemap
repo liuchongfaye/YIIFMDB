@@ -1,0 +1,6 @@
+framework module Pods_YIIFMDB {
+  umbrella header "Pods-YIIFMDB-umbrella.h"
+
+  export *
+  module * { export * }
+}
