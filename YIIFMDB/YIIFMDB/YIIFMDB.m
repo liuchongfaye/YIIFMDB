@@ -16,12 +16,12 @@
 @property (nonatomic, strong)   FMDatabaseQueue *databaseQueue;
 @property (nonatomic, strong)   FMDatabase *database;
 
-// 保证创建sql语句时的线程安全
-@property (nonatomic, strong, nonnull) dispatch_semaphore_t sqlLock;
-
 @end
 
-@implementation YIIFMDB
+@implementation YIIFMDB {
+    // 保证创建sql语句时的线程安全
+    dispatch_semaphore_t _sqlLock;
+}
 
 static NSString * const yii_primary_key  = @"yii_pkID";     // 主键
 static NSString * const yii_sql_text    = @"text";          // 字符串
@@ -106,10 +106,10 @@ static NSString * const yii_sql_integer = @"integer";       // 整型
         return NO;
     }
     
-    YIILock(self.sqlLock);
+    YIILock(_sqlLock);
     NSString *pkID = yii_primary_key;
     NSMutableString *sqliteString = [NSMutableString  stringWithFormat:@"create table if not exists %@ (%@ integer primary key", tableName, pkID];
-    YIIUnlock(self.sqlLock);
+    YIIUnlock(_sqlLock);
     
     // 基于runtime获取model的所有属性以及类型
     NSDictionary *properties = [self getPropertiesWithModel:modelClass];
@@ -137,7 +137,7 @@ static NSString * const yii_sql_integer = @"integer";       // 整型
     }
     
     if (model) {
-        YIILock(self.sqlLock);
+        YIILock(_sqlLock);
         NSMutableString *sqliteString = [NSMutableString stringWithFormat:@"insert into %@ (", tableName];
         NSArray *columns = [self getAllColumnsFromTable:tableName dataBase:self.database isIncludingPrimaryKey:NO];
         NSMutableArray *values = [NSMutableArray array];
@@ -145,7 +145,7 @@ static NSString * const yii_sql_integer = @"integer";       // 整型
             [values addObject:@"?"];
         }
         [sqliteString appendFormat:@"%@) values (%@)", [columns componentsJoinedByString:@","], [values componentsJoinedByString:@","]];
-        YIIUnlock(self.sqlLock);
+        YIIUnlock(_sqlLock);
         
         NSArray *arguments = [self getValuesFromModel:model columns:columns];
         BOOL isSuccess = [self.database executeUpdate:sqliteString withArgumentsInArray:arguments];
@@ -170,7 +170,7 @@ static NSString * const yii_sql_integer = @"integer";       // 整型
     
     if (models && [models isKindOfClass:[NSArray class]] && models.count > 0) {
         // 这里实际上可以与上面的方法混合使用，但是这个样子的话，初始化sqlite语句的时候就会出现多次运算，为了效率，这里与上面的方法进行了解耦
-        YIILock(self.sqlLock);
+        YIILock(_sqlLock);
         NSMutableString *sqliteString = [NSMutableString stringWithFormat:@"insert into %@ (", tableName];
         
         NSArray *columns = [self getAllColumnsFromTable:tableName dataBase:self.database isIncludingPrimaryKey:NO];
@@ -179,7 +179,7 @@ static NSString * const yii_sql_integer = @"integer";       // 整型
             [values addObject:@"?"];
         }
         [sqliteString appendFormat:@"%@) values (%@)", [columns componentsJoinedByString:@","], [values componentsJoinedByString:@","]];
-        YIIUnlock(self.sqlLock);
+        YIIUnlock(_sqlLock);
         
         for (id model in models) {
             NSArray *arguments = [self getValuesFromModel:model columns:columns];
@@ -203,12 +203,12 @@ static NSString * const yii_sql_integer = @"integer";       // 整型
         return NO;
     }
     
-    YIILock(self.sqlLock);
+    YIILock(_sqlLock);
     NSMutableString *sqliteString = [NSMutableString stringWithFormat:@"delete from %@", tableName];
     if (parameters && YIIIsStringValid(parameters.whereParameters)) {
         [sqliteString appendFormat:@" where %@", parameters.whereParameters];
     }
-    YIIUnlock(self.sqlLock);
+    YIIUnlock(_sqlLock);
     
     BOOL isSuccess = [self.database executeUpdate:sqliteString];
     
@@ -233,7 +233,7 @@ static NSString * const yii_sql_integer = @"integer";       // 整型
         return NO;
     }
     
-    YIILock(self.sqlLock);
+    YIILock(_sqlLock);
     NSMutableString *sqliteString = [NSMutableString stringWithFormat:@"update %@ set ", tableName];
     NSMutableArray *values = [NSMutableArray array];
     for (NSString *key in dictionary) {
@@ -244,7 +244,7 @@ static NSString * const yii_sql_integer = @"integer";       // 整型
         [sqliteString appendFormat:@"%@ = ? ", key];
         [values addObject:dictionary[key]];
     }
-    YIIUnlock(self.sqlLock);
+    YIIUnlock(_sqlLock);
     
     if (values.count > 0) {
         if (YIIIsStringValid(parameters.whereParameters)) {
@@ -271,14 +271,14 @@ static NSString * const yii_sql_integer = @"integer";       // 整型
         return nil;
     }
     
-    YIILock(self.sqlLock);
+    YIILock(_sqlLock);
     NSMutableArray *array = [NSMutableArray array];
     
     NSMutableString *sqliteString = [NSMutableString stringWithFormat:@"select * from %@", tableName];
     if (parameters && YIIIsStringValid(parameters.whereParameters)) {
         [sqliteString appendFormat:@" where %@", parameters.whereParameters];
     }
-    YIIUnlock(self.sqlLock);
+    YIIUnlock(_sqlLock);
     
     NSDictionary *properties = [self getPropertiesWithModel:modelClass];
     FMResultSet *resultSet = [self.database executeQuery:sqliteString];
@@ -351,7 +351,7 @@ static NSString * const yii_sql_integer = @"integer";       // 整型
         return NO;
     }
     
-    YIILock(self.sqlLock);
+    YIILock(_sqlLock);
     NSString *typeString = nil;
     switch (type) {
         case YIIFMDBValueTypeString:
@@ -371,7 +371,7 @@ static NSString * const yii_sql_integer = @"integer";       // 整型
             break;
     }
     NSString *sqliteString = [NSString stringWithFormat:@"alter table %@ add column %@ %@", tableName, column, typeString];
-    YIIUnlock(self.sqlLock);
+    YIIUnlock(_sqlLock);
     
     return [self.database executeUpdate:sqliteString];
 }
@@ -383,9 +383,9 @@ static NSString * const yii_sql_integer = @"integer";       // 整型
         return NO;
     }
     
-    YIILock(self.sqlLock);
+    YIILock(_sqlLock);
     NSString *sqliteString = [NSString stringWithFormat:@"drop table %@", tableName];
-    YIIUnlock(self.sqlLock);
+    YIIUnlock(_sqlLock);
     
     return [self.database executeUpdate:sqliteString];
 }
@@ -399,12 +399,12 @@ static NSString * const yii_sql_integer = @"integer";       // 整型
         [self log:@"tableName必须是字符串，且不能为nil"];
     }
     
-    YIILock(self.sqlLock);
+    YIILock(_sqlLock);
     NSMutableString *sqliteString = [NSMutableString stringWithFormat:@"select count(*) as 'count' from %@", tableName];
     if (parameters && YIIIsStringValid(parameters.whereParameters)) {
         [sqliteString appendFormat:@" where %@", parameters.whereParameters];
     }
-    YIIUnlock(self.sqlLock);
+    YIIUnlock(_sqlLock);
     FMResultSet *resultSet = [self.database executeQuery:sqliteString];
     while ([resultSet next]) {
         return [resultSet longLongIntForColumn:@"count"];
@@ -426,7 +426,7 @@ static NSString * const yii_sql_integer = @"integer";       // 整型
         return 0.0;
     }
     
-    YIILock(self.sqlLock);
+    YIILock(_sqlLock);
     NSMutableString *sqliteString = nil;
     NSString *operation = nil;
     switch (type) {
@@ -454,7 +454,7 @@ static NSString * const yii_sql_integer = @"integer";       // 整型
     if (parameters && YIIIsStringValid(parameters.whereParameters)) {
         [sqliteString appendFormat:@" where %@", parameters.whereParameters];
     }
-    YIIUnlock(self.sqlLock);
+    YIIUnlock(_sqlLock);
     FMResultSet *resultSet = [self.database executeQuery:sqliteString];
     double value = 0.0;
     while ([resultSet next]) {
