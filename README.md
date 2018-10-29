@@ -1,5 +1,10 @@
 # YIIFMDB 介绍
 基于FMDB的进一步封装：纯面向对象(其思想源自php的[yii 2架构](https://www.yiichina.com/doc/guide/2.0))，实现了model与数据库的一一映射，并且在大多数情况下，对数据库的操作比如增删改查等操作，完全不需要写sql语句。  
+
+blog:https://www.jianshu.com/p/482ef2ad3e66
+
+NSUserDefaultsModel:https://github.com/liuchongfaye/NSUserDefaultsModel(NSUserDefaults改进方案)
+
 其中主要有两个类：YIIParameters和YIIFMDB，具体用法如下：
 
 ## YIIParameters 用法
