@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "YIIFMDB"
-  s.version      = "1.0.1"
+  s.version      = "1.0.2"
   s.summary      = "基于FMDB的再一次封装，纯面向对象，直接操作Model，不需要写sqlite语句"
   s.homepage     = "https://github.com/liuchongfaye/YIIFMDB"
   s.license      = "MIT"

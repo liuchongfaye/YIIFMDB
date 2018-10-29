@@ -152,7 +152,7 @@ typedef void(^YIICompletionBlock)(YIIFMDB *db, NSDictionary *unrecognizedPropert
  *  @param tableName    表的名字
  *  @return             表是否存在
  */
-- (BOOL)exitsTable:(NSString * _Nonnull)tableName;
+- (BOOL)existTable:(NSString * _Nonnull)tableName;
 
 /**
  *  为一个表增加字段

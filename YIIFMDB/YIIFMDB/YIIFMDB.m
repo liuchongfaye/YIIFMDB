@@ -321,7 +321,7 @@ static NSString * const yii_sql_integer = @"integer";       // 整型
     return [self.database close];
 }
 
-- (BOOL)exitsTable:(NSString *)tableName {
+- (BOOL)existTable:(NSString *)tableName {
     if (YIIIsStringValid(tableName)) {
         FMResultSet *resultSet = [self.database executeQuery:@"select count(*) as 'count' from sqlite_master where type ='table' and name = ?", tableName];
         while ([resultSet next])
