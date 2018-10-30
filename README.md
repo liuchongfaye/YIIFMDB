@@ -53,7 +53,7 @@ parameters.limitCount = 10;
 ```
 这里涉及到一个枚举YIIParametersOrderType，其中YIIParametersOrderTypeAsc为升序，YIIParametersOrderTypeDesc为降序.  
 
-根据**and**,**or**,**limit**,**order by**这四个操作可以实现比较复杂的语句，比如：请筛选出年龄age在10到20之间，或者age>30，并且根据年纪最大的10人，代码如下：  
+根据**and**,**or**,**limit**,**order by**这四个操作可以实现比较复杂的语句，比如：请筛选出年龄age在10到20之间，或者age>30，并且根据年纪选出最大的10人，代码如下：  
 ```
   YIIParameters *parameters = [[YIIParameters alloc] init];
   // 配置age在大于10且小于20的参数
