@@ -51,16 +51,16 @@ parameters.limitCount = 10;
 ```
 [parameters orderByColumn:@"age" orderType:YIIParametersOrderTypeAsc];
 ```
-这里涉及到一个枚举YIIParametersOrderType，其中YIIParametersOrderTypeAsc为升序，YIIParametersOrderTypeDesc为降序.  
+这里涉及到一个枚举**YIIParametersOrderType**，其中**YIIParametersOrderTypeAsc为升序，YIIParametersOrderTypeDesc为降序**.  
 
 根据**and**,**or**,**limit**,**order by**这四个操作可以实现比较复杂的语句，比如：请筛选出年龄age在10到20之间，或者age>30，并且根据年纪选出最大的10人，代码如下：  
 ```
   YIIParameters *parameters = [[YIIParameters alloc] init];
-  // 配置age在大于10且小于20的参数
+  // 配置age在大于10且小于20的参数，两个and操作
   [parameters andWhere:@"age" value:@"10" relationType:YIIParametersRelationTypeGreaterThan];
   [parameters andWhere:@"age" value:@"20" relationType:YIIParametersRelationTypeLessThan];
-  // 配置age在大于30的参数
-  [parameters andWhere:@"age" value:@"30" relationType:YIIParametersRelationTypeGreaterThan];
+  // 配置age在大于30的参数，or操作
+  [parameteror orWhere:@"age" value:@"30" relationType:YIIParametersRelationTypeGreaterThan];
   // 数量限制在10个
   parameters.limitCount = 10;
   // 根据年龄进行降序
@@ -70,7 +70,9 @@ parameters.limitCount = 10;
 **最终形成的where参数**
 > @property (nonatomic, copy)   NSString *whereParameters;
 
-最终形成的where之后的参数可以打印**YIIParameters**这个类的**whereParameters**属性获得。如果都不能满足,那么自己设置这个参数。  
+最终形成的where之后的参数可以从**YIIParameters**这个类的**whereParameters**属性获得。  
+如果都不能满足,那么自己设置这个参数。  
+
 这里YIIParameters介绍完了，以下是YIIFMDB类的使用：
 
 ### YIIFMDB 类
