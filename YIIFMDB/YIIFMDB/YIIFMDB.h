@@ -6,6 +6,8 @@
 //  Copyright © 2018年 lc. All rights reserved.
 //
 
+//  Github: https://github.com/liuchongfaye/YIIFMDB
+
 #import <Foundation/Foundation.h>
 #import "YIIParameters.h"
 @class FMDatabase;
