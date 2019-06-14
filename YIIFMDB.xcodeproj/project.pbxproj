@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		44C2082A22B3BEC6008B8512 /* LCVideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C2082922B3BEC6008B8512 /* LCVideoModel.m */; };
 		44FAF47321869C09003925D4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 44FAF47221869C09003925D4 /* AppDelegate.m */; };
 		44FAF47621869C09003925D4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44FAF47521869C09003925D4 /* ViewController.m */; };
 		44FAF47921869C09003925D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44FAF47721869C09003925D4 /* Main.storyboard */; };
@@ -30,6 +31,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		44C2082822B3BEC6008B8512 /* LCVideoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCVideoModel.h; sourceTree = "<group>"; };
+		44C2082922B3BEC6008B8512 /* LCVideoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCVideoModel.m; sourceTree = "<group>"; };
 		44FAF46E21869C09003925D4 /* YIIFMDB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YIIFMDB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44FAF47121869C09003925D4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		44FAF47221869C09003925D4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -99,6 +102,8 @@
 				44FAF47221869C09003925D4 /* AppDelegate.m */,
 				44FAF47421869C09003925D4 /* ViewController.h */,
 				44FAF47521869C09003925D4 /* ViewController.m */,
+				44C2082822B3BEC6008B8512 /* LCVideoModel.h */,
+				44C2082922B3BEC6008B8512 /* LCVideoModel.m */,
 				44FAF47721869C09003925D4 /* Main.storyboard */,
 				44FAF47A21869C0A003925D4 /* Assets.xcassets */,
 				44FAF47C21869C0A003925D4 /* LaunchScreen.storyboard */,
@@ -288,6 +293,7 @@
 			files = (
 				44FAF47621869C09003925D4 /* ViewController.m in Sources */,
 				44FAF49A21869D9A003925D4 /* YIIParameters.m in Sources */,
+				44C2082A22B3BEC6008B8512 /* LCVideoModel.m in Sources */,
 				44FAF48121869C0A003925D4 /* main.m in Sources */,
 				44FAF47321869C09003925D4 /* AppDelegate.m in Sources */,
 				44FAF49B21869D9A003925D4 /* YIIFMDB.m in Sources */,
