@@ -70,22 +70,22 @@
     NSString *string = nil;
     switch (relationType) {
         case YIIParametersRelationTypeEqualTo:
-            string = [NSString stringWithFormat:@"%@ = %@", column, value];
+            string = [NSString stringWithFormat:@"%@ = \"%@\"", column, value];
             break;
         case YIIParametersRelationTypeUnequalTo:
-            string = [NSString stringWithFormat:@"%@ != %@", column, value];
+            string = [NSString stringWithFormat:@"%@ != \"%@\"", column, value];
             break;
         case YIIParametersRelationTypeGreaterThan:
-            string = [NSString stringWithFormat:@"%@ > %@", column, value];
+            string = [NSString stringWithFormat:@"%@ > \"%@\"", column, value];
             break;
         case YIIParametersRelationTypeGreaterThanOrEqualTo:
-            string = [NSString stringWithFormat:@"%@ >= %@", column, value];
+            string = [NSString stringWithFormat:@"%@ >= \"%@\"", column, value];
             break;
         case YIIParametersRelationTypeLessThan:
-            string = [NSString stringWithFormat:@"%@ < %@", column, value];
+            string = [NSString stringWithFormat:@"%@ < \"%@\"", column, value];
             break;
         case YIIParametersRelationTypeLessThanOrEqualTo:
-            string = [NSString stringWithFormat:@"%@ <= %@", column, value];
+            string = [NSString stringWithFormat:@"%@ <= \"%@\"", column, value];
             break;
         case YIIParametersRelationTypeLike:
             string = [NSString stringWithFormat:@"%@ like '%@'", column, value];
@@ -102,22 +102,22 @@
     NSString *string = nil;
     switch (relationType) {
         case YIIParametersRelationTypeEqualTo:
-            string = [NSString stringWithFormat:@"%@ = %@", column, value];
+            string = [NSString stringWithFormat:@"%@ = \"%@\"", column, value];
             break;
         case YIIParametersRelationTypeUnequalTo:
-            string = [NSString stringWithFormat:@"%@ != %@", column, value];
+            string = [NSString stringWithFormat:@"%@ != \"%@\"", column, value];
             break;
         case YIIParametersRelationTypeGreaterThan:
-            string = [NSString stringWithFormat:@"%@ > %@", column, value];
+            string = [NSString stringWithFormat:@"%@ > \"%@\"", column, value];
             break;
         case YIIParametersRelationTypeGreaterThanOrEqualTo:
-            string = [NSString stringWithFormat:@"%@ >= %@", column, value];
+            string = [NSString stringWithFormat:@"%@ >= \"%@\"", column, value];
             break;
         case YIIParametersRelationTypeLessThan:
-            string = [NSString stringWithFormat:@"%@ < %@", column, value];
+            string = [NSString stringWithFormat:@"%@ < \"%@\"", column, value];
             break;
         case YIIParametersRelationTypeLessThanOrEqualTo:
-            string = [NSString stringWithFormat:@"%@ <= %@", column, value];
+            string = [NSString stringWithFormat:@"%@ <= \"%@\"", column, value];
             break;
         default:
             break;
